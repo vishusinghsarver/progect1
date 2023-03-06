@@ -1,0 +1,20 @@
+<% if task_signed_in? %> 
+ <div> Welcome <%= current_task.email %> </div> 
+  <%= button_to "Sign out", destroy_task_session_path, method: :delete %> 
+<h2><%= link_to("New",new_task_path) %></h2>
+<table border=2, align='center'>
+    <%= form_with model:@task do |form|%>
+        <th>
+            <%= link_to "Home",'/tasks/:id '%>
+        </th>
+        <th>
+            <%= link_to "Office",'/tasks/:id'%>
+        </th>
+        <th>
+            <%= link_to "Market",'/tasks/:id' %>
+        </th>
+    <% end %>
+</table>
+<% else %>
+  <%= button_to "Sign in", new_task_session_path %> 
+<% end %>

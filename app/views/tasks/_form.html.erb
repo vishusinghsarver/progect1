@@ -1,0 +1,38 @@
+<% if task_signed_in? %> 
+<%= link_to('Back','/tasks') %>
+    <div> Welcome <%= current_task.email %> </div> 
+    <%= button_to "Sign out", destroy_task_session_path, method: :delete %> 
+    <table border ='1' , align='center'>
+        <%= form_with model: @task do |i| %>
+        <tr>
+            <td>
+                <%= i.label :Title %>
+                <%= i.text_field :title %><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <%= i.label :Description %>
+                <%= i.text_area :description, size: "16x1"%>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <%= i.radio_button :category, "home" %>
+                <%= i.label :Home %>
+                <%= i.radio_button :category, "office" %>
+                <%= i.label :Office %>
+                <%= i.radio_button :category, "market" %>
+                <%= i.label :Market %>
+            </td>
+        </tr>
+        <tr>
+        <td>
+            <%= i.submit 'create' %>
+        </td>
+    </tr>
+    <% end %>
+   </table>
+<% else %>
+    <%= button_to "Sign in", new_task_session_path %> 
+<% end %>
