@@ -1,7 +1,7 @@
-<% if task_signed_in? %> 
+<% if user_signed_in? %> 
 <%= link_to('Back','/tasks') %>
-    <div> Welcome <%= current_task.email %> </div> 
-    <%= button_to "Sign out", destroy_task_session_path, method: :delete %> 
+    <div> Welcome <%= current_user.email %> </div> 
+    <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
     <table border ='1' , align='center'>
         <%= form_with model: @task do |i| %>
         <tr>
@@ -18,12 +18,10 @@
         </tr>
         <tr>
             <td>
-                <%= i.radio_button :category, "home" %>
-                <%= i.label :Home %>
-                <%= i.radio_button :category, "office" %>
-                <%= i.label :Office %>
-                <%= i.radio_button :category, "market" %>
-                <%= i.label :Market %>
+                <% Task::CATEGORY.each do |key| %>
+                    <%= i.radio_button :category,key %>
+                    <%= i.label key %>
+                <% end%>
             </td>
         </tr>
         <tr>
@@ -34,5 +32,5 @@
     <% end %>
    </table>
 <% else %>
-    <%= button_to "Sign in", new_task_session_path %> 
+    <%= button_to "Sign in", new_user_session_path %> 
 <% end %>

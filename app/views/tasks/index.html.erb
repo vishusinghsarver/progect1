@@ -1,20 +1,23 @@
-<% if task_signed_in? %> 
- <div> Welcome <%= current_task.email %> </div> 
-  <%= button_to "Sign out", destroy_task_session_path, method: :delete %> 
+<% if user_signed_in? %> 
+ <div> Welcome <%= current_user.email %> </div> 
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
 <h2><%= link_to("New",new_task_path) %></h2>
 <table border=2, align='center'>
-    <%= form_with model:@task do |form|%>
+    <%= form_with url: "/tasks/:id",method: :get do |form|%>
+        <% Task::CATEGORY.each do |key| %>
+            <th>
+                <%= form.check_box :category,{multiple: true},key %>
+                <%= form.label key %>
+            </th>
+        <% end %>
         <th>
-            <%= link_to "Home",'/tasks/:id '%>
+            <%= form.submit "Done" %>
         </th>
         <th>
-            <%= link_to "Office",'/tasks/:id'%>
-        </th>
-        <th>
-            <%= link_to "Market",'/tasks/:id' %>
+            <%= link_to("All","/task/all") %>
         </th>
     <% end %>
 </table>
 <% else %>
-  <%= button_to "Sign in", new_task_session_path %> 
+  <%= button_to "Sign in", new_user_session_path %> 
 <% end %>
