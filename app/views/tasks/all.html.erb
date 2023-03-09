@@ -1,4 +1,30 @@
-<%= link_to('Back','/tasks') %> 
-<%= @task.each do|i| %>
-<p>Title:- <%= i.title %>
-<%end %>
+<% if user_signed_in? %> 
+ <div> Welcome <%= current_user.email %> </div> 
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+<h1><%= link_to('Back','/tasks') %></h1>
+<h2><%= link_to('Show','/tasks/show') %></h2>
+<table border='1', align='center'>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <% @tasks.each do |x|%>
+        <% if(x.status == "In_completed" and (current_user.id==x.user_id))%>
+            <tr>
+                <td><%= x.title %>
+                <td><%= x.description %>
+                <td><%= x.category %></td>
+                <td><%= link_to("Edit",edit_task_path(x.id)) %></td>
+                <td><%= link_to("Destroy",task_path(x.id), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"}) %></td>
+            </tr>
+        <% end%>
+    <% end %>
+</table>
+<% else %>
+  <%= button_to "Sign in", new_user_session_path %> 
+<% end %>

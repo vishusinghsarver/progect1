@@ -1,52 +1,31 @@
 <% if user_signed_in? %>
-    <%= link_to('Back','/tasks') %> 
-    <div> <h1>Welcome <%= current_user.email %></h1> </div> 
+  <div> Welcome <%= current_user.email %> </div> 
     <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
-    <h2><%= link_to("Edit",edit_task_path) %></h2>
-     <h2><%= link_to("destroy","/tasks/:id") %></h2>
-    <% if @task.category == "Market" %>
-        <%#= render "filter" %>
-        <p>Title:- <%= @task.title %></p>
-        <p>Description:- <%= @task.description %></p>
-        <% if @task[:status]=="In_complete" %>
-            <p>Status:- <%= @task.status %></p>
-            <% if params[:action]=="show" %>
-                <%= form_with model: @task do |form| %>
-                <%= form.check_box :status,{} %>
-                <%= form.label :Completed %>
+  <h1><%= link_to('Back','/tasks') %></h1>
+  <h2><%= link_to('All','/tasks/all') %></h2>
+  <h1>Welcome To Show page</h1>
+  <% if @cat== nil %>
+    <h1>Plz Select any Option
+  <% else %>
+      <% @tasks.each do |x|%>     
+            <% @cat.each do |i| %>
+                <% if i=="0" %>
+                    <% next %>  
+                <% elsif (i==x.category and (x.status=="Completed")) %>
+                    <p>Title:- <%= x.title %></p>
+                    <p>Description:- <%= x.description %></p>
+                    <p>Status:- <%= x.status %> </p>
+                    <p>Edit:- <%= link_to("Edit",edit_task_path(x.id)) %></p>
+                    <p>Delete:-<%= link_to "Destroy","/tasks/#{x.id}", data: { turbo_method: :delete} %></p>
+                    <p>___________XXXX___________</p>
                 <% end %>
             <% end %>
-        <% end %>
-    <p>Category:- <%= @task.category %></p>
-    <% elsif @task.category == "Home" %>
-        <%#= render "filter" %>
-                <p>Title:- <%= @task.title %></p>
-        <p>Description:- <%= @task.description %></p>
-        <% if @task[:status]=="In_complete" %>
-            <p>Status:- <%= @task.status %></p>
-            <% if params[:action]=="show" %>
-                <%= form_with model: @task do |form| %>
-                <%= form.check_box :status,{} %>
-                <%= form.label :Completed %>
-                <% end %>
-            <% end %>
-        <% end %>
-    <p>Category:- <%= @task.category %></p>
-    <% elsif @task.category == "Office" %>
-        <%#= render "filter" %>
-        <p>Title:- <%= @task.title %></p>
-        <p>Description:- <%= @task.description %></p>
-        <% if @task[:status]=="In_complete" %>
-            <p>Status:- <%= @task.status %></p>
-            <% if params[:action]=="show" %>
-                <%= form_with model: @task do |form| %>
-                <%= form.check_box :status,{} %>
-                <%= form.label :Completed %>
-                <% end %>
-            <% end %>
-        <% end %>
-    <p>Category:- <%= @task.category %></p>
-    <% end %>
+      <%end %>  
+  <% end %>
 <% else %>
-    <%= button_to "Sign in", new_user_session_path %> 
+  <%= button_to "Sign in", new_user_session_path %> 
 <% end %>
+
+
+
+                

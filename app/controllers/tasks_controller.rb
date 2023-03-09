@@ -1,9 +1,10 @@
 class TasksController < ApplicationController
   def index
+    # byebug
   end
   def show
-    # byebug
-    @task=Task.find(current_user[:id])
+    @tasks=Task.where('user_id=?',current_user.id)
+    @cat=params[:category]
   end
   def new 
     @task=Task.new
@@ -12,28 +13,32 @@ class TasksController < ApplicationController
     @task=Task.new(task_params)
     #byebug
     if @task.save
-      redirct_to index    
-    # elsif 
-    #   render show
+      redirect_to tasks_all_path   
+    elsif 
+       render :new
     end
   end
   def edit   
-    @task=Task.find(current_user[:id])
+    @task=Task.find(params[:id])
 end
 def update
-    @task=Task.find(current_user[:id])
+  # byebug
+    @task=Task.find(params[:id])
     #byebug
     if @task.update(task_params)
+      # byebug
         redirect_to "/tasks/show"
     else
         render :edit
     end
 end
 def destroy 
-  @task=Task.find(current_task[:id]).destroy
+  @task=Task.find(params[:id]).destroy
+  redirect_to root_path
 end
 def all
   @tasks=Task.all
+  #byebug
 end
    private
   def task_params

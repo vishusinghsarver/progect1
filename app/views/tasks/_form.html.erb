@@ -1,36 +1,40 @@
 <% if user_signed_in? %> 
-<%= link_to('Back','/tasks') %>
-    <div> Welcome <%= current_user.email %> </div> 
-    <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
-    <table border ='1' , align='center'>
-        <%= form_with model: @task do |i| %>
+ <div> Welcome <%= current_user.email %> </div> 
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+  <h1><%= link_to('Back','/tasks/all') %></h1>
+  <%= form_with model: @task do |form| %>
+    <table boader='1', align='center'>
+    <td>
         <tr>
-            <td>
-                <%= i.label :Title %>
-                <%= i.text_field :title %><br>
-            </td>
+            <%= form.label :Title %>
+            <%= form.text_field :title %><br><br>
         </tr>
         <tr>
-            <td>
-                <%= i.label :Description %>
-                <%= i.text_area :description, size: "16x1"%>
-            </td>
+            <%= form.label :Description %>
+            <%= form.text_field :description %><br><br>
         </tr>
         <tr>
-            <td>
-                <% Task::CATEGORY.each do |key| %>
-                    <%= i.radio_button :category,key %>
-                    <%= i.label key %>
-                <% end%>
-            </td>
+            <%= form.label :Status %>
+            <% if params[:action]=="new" %>
+                <%= form.select :status,["In_completed"] %><br><br>
+            <% else %>
+                <%= form.select :status,["In_completed","Completed"] %><br><br>
+            <% end %>
         </tr>
         <tr>
-        <td>
-            <%= i.submit 'create' %>
-        </td>
-    </tr>
+            <%= form.label :Category %>
+            <%= form.select :category,Task::CATEGORY %><br><br>
+        </tr>
+        <tr>
+            <%= form.label :User_Id %>
+            <%= form.select :user_id,[current_user.id]%><br><br>
+        </tr>
+        <tr>
+            <%= form.submit "create" %><br><br>
+        </tr>
+    </td>
+    </table>
     <% end %>
-   </table>
 <% else %>
-    <%= button_to "Sign in", new_user_session_path %> 
+  <%= button_to "Sign in", new_user_session_path %> 
 <% end %>
