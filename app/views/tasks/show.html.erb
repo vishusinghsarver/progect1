@@ -1,11 +1,12 @@
 <% if user_signed_in? %>
   <div> Welcome <%= current_user.email %> </div> 
-    <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
   <h1><%= link_to('Back','/tasks') %></h1>
   <h2><%= link_to('All','/tasks/all') %></h2>
   <h1>Welcome To Show page</h1>
   <% if @cat== nil %>
-    <h1>Plz Select any Option
+    <h1>Plz Select any Option</h1>
+    <h4><%= link_to('Go _To_index','/tasks')%> </h4>
   <% else %>
       <% @tasks.each do |x|%>     
             <% @cat.each do |i| %>
@@ -16,7 +17,9 @@
                     <p>Description:- <%= x.description %></p>
                     <p>Status:- <%= x.status %> </p>
                     <p>Edit:- <%= link_to("Edit",edit_task_path(x.id)) %></p>
-                    <p>Delete:-<%= link_to "Destroy","/tasks/#{x.id}", data: { turbo_method: :delete} %></p>
+                    <p>Delete:-<%= link_to("Destroy" ,tasks_path(x), 
+                                  data: {turbo_method: :delete}) %>
+                    </p>
                     <p>___________XXXX___________</p>
                 <% end %>
             <% end %>

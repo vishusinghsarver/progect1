@@ -3,10 +3,12 @@ Rails.application.routes.draw do
   get 'tasks/all'
   patch 'tasks/all'
   post 'tasks/show'
+  delete 'tasks/id'
+  delete 'tasks/delete'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root to: "tasks#index" 
   resources :tasks
-  #get "tasks/create"
-  # Defines the root path route ("/")
+  # g"tasks/id"
+  #efines the root path route ("/")
   # root "articles#index"
 end

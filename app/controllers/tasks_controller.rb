@@ -33,6 +33,7 @@ def update
     end
 end
 def destroy 
+  byebug
   @task=Task.find(params[:id]).destroy
   redirect_to root_path
 end

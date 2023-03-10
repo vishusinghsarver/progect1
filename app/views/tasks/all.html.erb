@@ -18,9 +18,7 @@
                 <td><%= x.description %>
                 <td><%= x.category %></td>
                 <td><%= link_to("Edit",edit_task_path(x.id)) %></td>
-                <td><%= link_to("Destroy",task_path(x.id), data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"}) %></td>
+                <td><%= link_to "delete","/tasks/delete(#{x.id})",data: {turbo_method: :delete} %></td>
             </tr>
         <% end%>
     <% end %>
