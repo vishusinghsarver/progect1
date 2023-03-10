@@ -1,4 +1,4 @@
 class ApplicationController < ActionController::Base
-    layout 'header'
+    #layout 'header'
     
 end

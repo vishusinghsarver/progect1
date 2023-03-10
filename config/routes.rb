@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   get 'tasks/all'
   patch 'tasks/all'
   post 'tasks/show'
-  delete 'tasks/id'
-  delete 'tasks/delete'
+  # delete 'tasks/:id'
+  # delete 'tasks/delete'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root to: "tasks#index" 
   resources :tasks

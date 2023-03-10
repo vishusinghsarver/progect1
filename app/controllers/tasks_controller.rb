@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    # byebug
+  
   end
   def show
     @tasks=Task.where('user_id=?',current_user.id)
@@ -20,8 +20,8 @@ class TasksController < ApplicationController
   end
   def edit   
     @task=Task.find(params[:id])
-end
-def update
+  end
+  def update
   # byebug
     @task=Task.find(params[:id])
     #byebug
@@ -31,15 +31,14 @@ def update
     else
         render :edit
     end
-end
-def destroy 
-  byebug
-  @task=Task.find(params[:id]).destroy
-  redirect_to root_path
-end
+  end
+  def destroy 
+    byebug
+    @task=Task.find(params[:id]).destroy
+    redirect_to root_path
+  end
 def all
   @tasks=Task.all
-  #byebug
 end
    private
   def task_params

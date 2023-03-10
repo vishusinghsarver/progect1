@@ -3,7 +3,7 @@
     <div> Welcome <%= current_user.email %> </div> 
     <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
     <h1><%= link_to "New",new_task_path %></h1>
-    <h2><%= link_to("All",tasks_all_path) %></h2>
+    <h2><%= link_to("All","/tasks/index") %></h2>
     <%= form_with url: "/tasks/show" , model: @task do |form| %>
     <table boader='1', align='center'>
             <% Task::CATEGORY.each do |key| %>
