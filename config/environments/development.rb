@@ -4,6 +4,17 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  config.consider_all_requesActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => 'user',
+    :password       => 'password',
+    :domain         => 'heroku.com',
+    :enable_starttls_auto => true
+  }
+  #By default caching is disabled.
   
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
