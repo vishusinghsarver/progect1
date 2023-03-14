@@ -2,7 +2,7 @@
  <div> Welcome <%= current_user.email %> </div> 
   <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
 <h1><%= link_to('Back','/tasks') %></h1>
-<h2><%= link_to('Show','/tasks/show') %></h2>
+<h2><%#= link_to('Show',tasks_show_path) %></h2>
 <table border='1', align='center'>
     <tr>
         <th>Title</th>
@@ -11,14 +11,14 @@
         <th>Edit</th>
         <th>Delete</th>
     </tr>
-    <% @tasks.each do |x|%>
+    <% @tasks.each do |x| %>
         <% if(x.status == "In_completed" and (current_user.id==x.user_id))%>
             <tr>
-                <td><%= x.title %>
-                <td><%= x.description %>
+                <td><%= x.title %></td>
+                <td><%= x.description %></td>
                 <td><%= x.category %></td>
                 <td><%= link_to("Edit",edit_task_path(x.id)) %></td>
-                <td><%= link_to "delete","/tasks/delete(#{x.id})",data: {turbo_method: :delete} %></td>
+                <td><%= link_to "Destroy","/tasks/(#{x.id})",data: {turbo_method: :delete} %></td>
             </tr>
         <% end%>
     <% end %>
